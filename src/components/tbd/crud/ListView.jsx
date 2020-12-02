@@ -31,8 +31,11 @@ function ListView ({ fields, url }) {
           <Card key={item.id}>
             <Card.Header>
               <Row>
-                <Col>{item.name}</Col>
-                <Col>{item.weight}</Col>
+                {
+                  fields.map((field) =>
+                      <Col>{item[field]}</Col>
+                  )
+                }
               </Row>
             </Card.Header>
           </Card>

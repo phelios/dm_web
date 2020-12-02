@@ -3,11 +3,9 @@ import Container from 'react-bootstrap/Container'
 import ListView from '../../tbd/crud/ListView'
 import {dm_backend_url} from "../../../config";
 
-export default function Criteria () {
-  const [name, weight] = ['name', 'weight']
-
-  const fields = [name, weight]
-  const url = dm_backend_url + 'criteria/'
+export default function Projects () {
+  const fields = ['name']
+  const url = dm_backend_url + '/projects/'
   // const listDisplays = {
   //   left: name,
   //   right: weight,
@@ -17,7 +15,7 @@ export default function Criteria () {
     <Container>
       <h1>
         <div>
-          <span>Criteria</span>
+          <span>Projects</span>
         </div>
       </h1>
       <ListView fields={fields} url={url} />
