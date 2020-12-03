@@ -6,8 +6,7 @@ import Card from 'react-bootstrap/Card'
 import Button from "react-bootstrap/Button";
 import {tbdFetch} from "../http";
 
-function ListView ({ fields, url, setIsLoading }) {
-  const [listData, setListData] = useState([])
+function ListView ({ fields, url, setIsLoading, setListData, listData }) {
 
   useEffect(() => {
     tbdFetch(url, {}, r => {

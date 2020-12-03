@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import Container from 'react-bootstrap/Container'
 import ListView from '../../tbd/crud/ListView'
 import {dm_backend_url} from "../../../config"
-import Button from "react-bootstrap/Button"
 import FormView from "../../tbd/crud/FormView";
 import Spinner from "react-bootstrap/Spinner";
 import Row from "react-bootstrap/Row";
@@ -13,6 +12,7 @@ export default function Projects() {
   const url = dm_backend_url + '/projects/'
 
   const [isLoading, setIsLoading] = useState(false);
+  const [listData, setListData] = useState([])
 
   // const listDisplays = {
   //   left: name,
@@ -35,8 +35,8 @@ export default function Projects() {
           <Col><TbdSpinner /></Col>
         </Row>
       </h1>
-      <ListView fields={fields} url={url} setIsLoading={setIsLoading} />
-      <FormView fields={fields} url={url} setIsLoading={setIsLoading} />
+      <ListView fields={fields} url={url} setIsLoading={setIsLoading} setListData={setListData} listData={listData} />
+      <FormView fields={fields} url={url} setIsLoading={setIsLoading} setListData={setListData} listData={listData} />
     </Container>
   )
 }

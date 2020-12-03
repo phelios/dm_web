@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import {tbdFetch} from "../http";
 
-function FormView({fields, url, setIsLoading}) {
+function FormView({fields, url, setIsLoading, setListData, listData}) {
 
   const initData = fields.reduce((obj, val) => {
     obj[val] = '';
@@ -32,7 +32,7 @@ function FormView({fields, url, setIsLoading}) {
 
     tbdFetch(url, data, r => {
       setEditMode(false)
-      // r.json().then(newData => setListData([...listData, newData]));
+      r.json().then(newData => setListData([...listData, newData]));
     }, setIsLoading);
   }
 
