@@ -6,13 +6,13 @@ import Card from 'react-bootstrap/Card'
 import Button from "react-bootstrap/Button";
 import {tbdFetch} from "../http";
 
-function ListView ({ fields, url }) {
+function ListView ({ fields, url, setIsLoading }) {
   const [listData, setListData] = useState([])
 
   useEffect(() => {
     tbdFetch(url, {}, r => {
       r.json().then(json => setListData(json))
-    })
+    }, setIsLoading)
   }, [url])
 
   return (
