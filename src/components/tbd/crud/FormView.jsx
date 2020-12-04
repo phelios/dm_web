@@ -16,7 +16,6 @@ function FormView({fields, url, setIsLoading, setListData, listData}) {
   const [editMode, setEditMode] = useState(false)
 
   function updateFormData(fieldName, text) {
-    console.log(fieldName, text)
     setFormData({...formData, [fieldName]: text});
   }
 
