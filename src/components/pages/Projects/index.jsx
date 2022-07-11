@@ -8,11 +8,11 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 export default function Projects() {
-  const fields = ['name']
-  const url = dm_backend_url + '/projects/'
+  const fields = ['name'];
+  const url = dm_backend_url + '/projects/';
 
   const [isLoading, setIsLoading] = useState(false);
-  const [listData, setListData] = useState([])
+  const [listData, setListData] = useState([]);
 
   // const listDisplays = {
   //   left: name,

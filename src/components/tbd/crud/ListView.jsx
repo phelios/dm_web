@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -6,14 +6,20 @@ import Card from 'react-bootstrap/Card'
 import Button from "react-bootstrap/Button";
 import {tbdFetch} from "../http";
 import {BsPencil, BsTrash} from "react-icons/bs";
+import { useNavigate } from 'react-router-dom'
 
 function ListView({fields, url, setIsLoading, setListData, listData}) {
+  let navigate = useNavigate();
 
   useEffect(() => {
     tbdFetch(url, {}, r => {
       r.json().then(json => setListData(json))
     }, setIsLoading)
   }, [url])
+
+  function handleEdit(id) {
+    navigate(String(id));
+  }
 
   function handleDelete(id) {
     let data = {
@@ -40,7 +46,7 @@ function ListView({fields, url, setIsLoading, setListData, listData}) {
                 )
               }
               <Col className='text-right'>
-                <Button>
+                <Button onClick={() => handleEdit(item.id)}>
                  <BsPencil />
                 </Button>
                 {' '}
