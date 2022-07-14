@@ -42,7 +42,7 @@ export default function Projects() {
           <Col>Projects</Col>
         </Row>
       </h1>
-      <ListView fields={fields} url={url} setListData={setListData} listData={listData} />
+      {/* <ListView fields={fields} url={url} setListData={setListData} listData={listData} /> */}
       <FormView fields={fields} url={url} setListData={setListData} listData={listData} />
     </div>
   )

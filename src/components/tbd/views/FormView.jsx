@@ -16,8 +16,10 @@ function FormView({fields, url, setListData, listData}) {
   const [formData, setFormData] = useState({});
   const [editMode, setEditMode] = useState(false);
 
-  function updateFormData(fieldName, text) {
-    setFormData({...formData, [fieldName]: text});
+  const handler = {formData, setFormData}
+
+  function updateFormData(fieldName, val) {
+    setFormData({...formData, [fieldName]: val});
   }
 
   function handleNew() {
@@ -36,15 +38,15 @@ function FormView({fields, url, setListData, listData}) {
     }, setIsLoading);
   }
 
-
   if (editMode) {
     return (
       <Card>
+        <span>{JSON.stringify(formData)}</span>
         <Form>
           <Row>
             {fields.map((field) =>
               <Col key={field.name}>
-                <DynamicInput field={field} />
+                <DynamicInput field={field} handler={updateFormData} />
               </Col>
             )}
             <Col xs="1" lg='2'>
