@@ -37,7 +37,7 @@ function ListView({fields, url, setListData, listData}) {
   }
 
   return (
-    <>
+    <div>
       {listData.map((item) =>
         <Card key={item.id}>
           <Card.Header className='align-middle'>
@@ -60,7 +60,7 @@ function ListView({fields, url, setListData, listData}) {
           </Card.Header>
         </Card>
       )}
-    </>
+    </div>
   )
 }
 

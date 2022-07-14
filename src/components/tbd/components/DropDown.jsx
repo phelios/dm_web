@@ -1,20 +1,13 @@
 import React, {useEffect, useState} from "react";
 import Form from "react-bootstrap/Form";
-import { tbdFetch } from "../http";
 
 
-export default function DropDown({url, pk, fieldName, data}) {
-  const [optionListData, setOptionListData] = useState([]);
-  useEffect(() => {
-    tbdFetch(url, data, r => {
-      r.json().then(json => setOptionListData(json))
-    })
-  }, [url])
-
+export default function DropDown({field}) {
+  console.log('dropdown: ' + field);
   return (
     <Form.Select>
-      {optionListData.map((option) =>
-        <option value={option[pk]}>{option[fieldName]}</option>
+      {field.list.map((option) =>
+        <option key={option.id} value={option.id}>{option.name}</option>
       )}
     </Form.Select>
   )

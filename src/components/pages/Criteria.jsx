@@ -1,7 +1,7 @@
 import React from 'react'
 import Container from 'react-bootstrap/Container'
 import ListView from '../../tbd/crud/ListView'
-import {dm_backend_url} from "../../../config";
+import {dm_backend_url} from "../../config";
 
 export default function Criteria () {
   const [name, weight] = ['name', 'weight']

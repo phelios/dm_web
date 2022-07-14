@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form'
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import {tbdFetch} from "../http";
-import DropDown from '../components/DropDown';
+import DynamicInput from '../components/DynamicInput';
 import {dm_backend_url} from "../../../config";
 import Row from 'react-bootstrap/Row'
 import { useLoading } from '../../providers/LoadingContext';
@@ -13,13 +13,8 @@ function FormView({fields, url, setListData, listData}) {
 
   const {setIsLoading} = useLoading();
 
-  const initData = fields.reduce((obj, val) => {
-    obj[val] = '';
-    return obj;
-  }, {});
-
-  const [formData, setFormData] = useState(initData);
-  const [editMode, setEditMode] = useState(false)
+  const [formData, setFormData] = useState({});
+  const [editMode, setEditMode] = useState(false);
 
   function updateFormData(fieldName, text) {
     setFormData({...formData, [fieldName]: text});
@@ -48,15 +43,10 @@ function FormView({fields, url, setListData, listData}) {
         <Form>
           <Row>
             {fields.map((field) =>
-              <Col key={field}>
-                <Form.Control type='text'
-                              placeholder={field}
-                              value={formData[field].toString()}
-                              onChange={e => updateFormData(field, e.target.value)}
-                />
+              <Col key={field.name}>
+                <DynamicInput field={field} />
               </Col>
             )}
-            {/* <DropDown url={dm_backend_url + 'categories/'} pk='id' fieldName='name' /> */}
             <Col xs="1" lg='2'>
               <Button onClick={handleNew}>Save</Button>
             </Col>
