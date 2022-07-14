@@ -5,6 +5,6 @@ export default function Project() {
     let { projectId } = useParams();
 
     return (
-        <h1>Project id: {projectId}</h1>
+      <h1>Hello World</h1>
     );
 }

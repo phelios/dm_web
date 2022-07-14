@@ -7,9 +7,11 @@ import Button from "react-bootstrap/Button";
 import {tbdFetch} from "../http";
 import {BsPencil, BsTrash} from "react-icons/bs";
 import { useNavigate } from 'react-router-dom'
+import { useLoading } from '../../providers/LoadingContext'
 
-function ListView({fields, url, setIsLoading, setListData, listData}) {
-  let navigate = useNavigate();
+function ListView({fields, url, setListData, listData}) {
+  const navigate = useNavigate();
+  const {setIsLoading} = useLoading();
 
   useEffect(() => {
     tbdFetch(url, {}, r => {

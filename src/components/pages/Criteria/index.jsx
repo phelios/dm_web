@@ -8,10 +8,6 @@ export default function Criteria () {
 
   const fields = [name, weight]
   const url = dm_backend_url + 'criteria/'
-  // const listDisplays = {
-  //   left: name,
-  //   right: weight,
-  // };
 
   return (
     <Container>

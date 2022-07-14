@@ -4,8 +4,14 @@ import Form from 'react-bootstrap/Form'
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import {tbdFetch} from "../http";
+import DropDown from '../components/DropDown';
+import {dm_backend_url} from "../../../config";
+import Row from 'react-bootstrap/Row'
+import { useLoading } from '../../providers/LoadingContext';
 
-function FormView({fields, url, setIsLoading, setListData, listData}) {
+function FormView({fields, url, setListData, listData}) {
+
+  const {setIsLoading} = useLoading();
 
   const initData = fields.reduce((obj, val) => {
     obj[val] = '';
@@ -35,11 +41,12 @@ function FormView({fields, url, setIsLoading, setListData, listData}) {
     }, setIsLoading);
   }
 
+
   if (editMode) {
     return (
       <Card>
         <Form>
-          <Form.Row>
+          <Row>
             {fields.map((field) =>
               <Col key={field}>
                 <Form.Control type='text'
@@ -49,10 +56,11 @@ function FormView({fields, url, setIsLoading, setListData, listData}) {
                 />
               </Col>
             )}
+            {/* <DropDown url={dm_backend_url + 'categories/'} pk='id' fieldName='name' /> */}
             <Col xs="1" lg='2'>
-              <Button block onClick={handleNew}>Save</Button>
+              <Button onClick={handleNew}>Save</Button>
             </Col>
-          </Form.Row>
+          </Row>
         </Form>
       </Card>
     )

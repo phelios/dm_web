@@ -5,17 +5,22 @@ import React from 'react';
 import {
   BrowserRouter as Router, 
   Routes,
-  Route 
+  Route,
+  Navigate
 } from 'react-router-dom';
+import LayoutProvider from './components/providers/LayoutProvider';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="projects" element={<Projects />} />
-        <Route path="projects/:projectId" element={<Project />} />
-      </Routes>
-    </Router>
+    <LayoutProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Navigate to="projects" replace={true} />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="projects/:projectId" element={<Project />} />
+        </Routes>
+      </Router>
+    </LayoutProvider>
   );
 }
 
