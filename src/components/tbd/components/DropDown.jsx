@@ -3,14 +3,15 @@ import Form from "react-bootstrap/Form";
 
 
 export default function DropDown({field, handler}) {
+  useEffect(() => {
+    if (field.list.length > 0) {
+      handler(field.name, field.list[0].id);
+    }
+  }, [field.list])
 
-  function handleChange(e) {
-    const selected = field.list[e.target.value];
-    handler(field.name, selected);
-  }
 
   return (
-    <Form.Select onChange={e => handleChange(e)}>
+    <Form.Select onChange={e => handler(field.name, e.target.value)}>
       {field.list.map((option, index) =>
         <option key={option.id} value={index}>{option.name}</option>
       )}

@@ -9,12 +9,14 @@ import {dm_backend_url} from "../../../config";
 import Row from 'react-bootstrap/Row'
 import { useLoading } from '../../providers/LoadingContext';
 
-function FormView({fields, url, setListData, listData}) {
+function FormView({fields, url, useListData}) {
 
   const {setIsLoading} = useLoading();
 
   const [formData, setFormData] = useState({});
   const [editMode, setEditMode] = useState(false);
+
+  const {listData, setListData} = useListData;
 
   const handler = {formData, setFormData}
 
@@ -41,7 +43,6 @@ function FormView({fields, url, setListData, listData}) {
   if (editMode) {
     return (
       <Card>
-        <span>{JSON.stringify(formData)}</span>
         <Form>
           <Row>
             {fields.map((field) =>

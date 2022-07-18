@@ -1,20 +1,18 @@
 import React, {useEffect, useState} from 'react'
-import ListView from '../tbd/views/ListView'
 import {dm_backend_url} from "../../config"
-import FormView from "../tbd/views/FormView";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useLoading } from '../providers/LoadingContext';
 import { tbdFetch } from '../tbd/http';
+import UniView from '../tbd/views/UniView';
 
 export default function Projects() {
 
   const {setIsLoading} = useLoading();
   const [fields, setFields] = useState([])
-  const [listData, setListData] = useState([]);
 
   const categoryApiUrl = dm_backend_url + '/categories/';
-  const url = dm_backend_url + '/projects/';
+  const projectsApiEndpoint = dm_backend_url + '/projects/';
 
   function initFields(json) {
     const fields = [{
@@ -22,7 +20,7 @@ export default function Projects() {
       type: 'text'
     },
     {
-      name: 'category',
+      name: 'category_id',
       type: 'dropdown',
       list: json
     }];
@@ -35,6 +33,10 @@ export default function Projects() {
     }, setIsLoading)
   }, [categoryApiUrl])
 
+  if (fields.length < 1) {
+    return null
+  }
+
   return (
     <div>
       <h1>
@@ -42,8 +44,7 @@ export default function Projects() {
           <Col>Projects</Col>
         </Row>
       </h1>
-      {/* <ListView fields={fields} url={url} setListData={setListData} listData={listData} /> */}
-      <FormView fields={fields} url={url} setListData={setListData} listData={listData} />
+      <UniView fields={fields} apiEndpoint={projectsApiEndpoint} />
     </div>
   )
 }

@@ -9,9 +9,10 @@ import {BsPencil, BsTrash} from "react-icons/bs";
 import { useNavigate } from 'react-router-dom'
 import { useLoading } from '../../providers/LoadingContext'
 
-function ListView({fields, url, setListData, listData}) {
+function ListView({fields, url, useListData}) {
   const navigate = useNavigate();
   const {setIsLoading} = useLoading();
+  const {listData, setListData} = useListData;
 
   useEffect(() => {
     tbdFetch(url, {}, r => {
@@ -36,6 +37,14 @@ function ListView({fields, url, setListData, listData}) {
     }, setIsLoading);
   }
 
+  function DynamicDisplay({item, field}) {
+      if (field.type === 'text') {
+        return (<Col>{item[field.name]}</Col>)
+      } else if (field.type === 'dropdown') {
+        return (<Col>{field.list.filter( i => i.id == item[field.name])[0].name}</Col>)
+      }
+  }
+
   return (
     <div>
       {listData.map((item) =>
@@ -43,9 +52,7 @@ function ListView({fields, url, setListData, listData}) {
           <Card.Header className='align-middle'>
             <Row>
               {
-                fields.map((field) =>
-                  <Col key={field}>{item[field]}</Col>
-                )
+                fields.map((field) => <DynamicDisplay key={field.name} item={item} field={field} />)
               }
               <Col className='text-right'>
                 <Button onClick={() => handleEdit(item.id)}>
