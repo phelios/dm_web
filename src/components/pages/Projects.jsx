@@ -44,7 +44,7 @@ export default function Projects() {
           <Col>Projects</Col>
         </Row>
       </h1>
-      <UniView fields={fields} apiEndpoint={projectsApiEndpoint} />
+      <UniView schema={fields} apiEndpoint={projectsApiEndpoint} />
     </div>
   )
 }
