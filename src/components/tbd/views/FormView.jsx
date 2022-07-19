@@ -8,14 +8,9 @@ import DynamicInput from '../components/DynamicInput';
 import Row from 'react-bootstrap/Row'
 import { useLoading } from '../../providers/LoadingContext';
 
-function FormView({schema, data, handleNew}) {
-
-  // const {setIsLoading} = useLoading();
+function FormView({schema, data, onChange}) {
 
   const [formData, setFormData] = useState({});
-  // const [editMode, setEditMode] = useState(false);
-
-  // const handler = {formData, setFormData}
 
   function updateFormData(fieldName, val) {
     setFormData({...formData, [fieldName]: val});
@@ -37,6 +32,18 @@ function FormView({schema, data, handleNew}) {
   //   }, setIsLoading);
   // }
 
+  function handleNew() {}
+
+  function handleCancel() {
+    if (data.editMode == 'new') {
+      data = null
+    } else if (data.editMode == 'update') {
+      delete data.editMode
+    }
+
+    onChange(data);
+  }
+
   return (
     <Card>
       <Form>
@@ -49,11 +56,13 @@ function FormView({schema, data, handleNew}) {
           <Col xs="1" lg='2'>
             <Button onClick={handleNew}>Save</Button>
           </Col>
+          <Col xs="1" lg='2'>
+            <Button onClick={handleCancel}>Cancel</Button>
+          </Col>
         </Row>
       </Form>
     </Card>
   )
-    // return (<Button onClick={() => setEditMode(true)}>Add</Button>)
 }
 
 export default FormView

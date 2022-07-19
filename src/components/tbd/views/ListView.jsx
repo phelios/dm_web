@@ -9,7 +9,7 @@ import {BsPencil, BsTrash} from "react-icons/bs";
 import { useNavigate } from 'react-router-dom'
 import { useLoading } from '../../providers/LoadingContext'
 
-function ListView({data, schema, handleEdit}) {
+function ListView({data, schema, onChange}) {
   // useEffect(() => {
   //   tbdFetch(url, {}, r => {
   //     r.json().then(json => setListData(json))
@@ -33,6 +33,11 @@ function ListView({data, schema, handleEdit}) {
   //   }, setIsLoading);
   // }
 
+  function handleEdit() {
+    data.editMode = "update";
+    onChange(data);
+  }
+
   function DynamicDisplay({data, fieldSpec}) {
       if (fieldSpec.type === 'text') {
         return (<Col>{data[fieldSpec.name]}</Col>)
@@ -49,7 +54,7 @@ function ListView({data, schema, handleEdit}) {
                 schema.map((fieldSpec) => <DynamicDisplay key={fieldSpec.name} data={data} fieldSpec={fieldSpec} />)
               }
               <Col className='text-right'>
-                <Button onClick={() => handleEdit(data.id)}>
+                <Button onClick={handleEdit}>
                  <BsPencil />
                 </Button>
               </Col>

@@ -3,6 +3,7 @@ import ListView from "./ListView";
 import FormView from "./FormView";
 import { tbdFetch } from "../http";
 import { useLoading } from "../../providers/LoadingContext";
+import { Button } from "react-bootstrap";
 
 export default function UniView({schema, apiEndpoint}) {
   const [listData, setListData] = useState([]);
@@ -14,17 +15,41 @@ export default function UniView({schema, apiEndpoint}) {
     }, setIsLoading)
   }, [apiEndpoint])
 
-  function handleEdit(id) {
-    setListData(prevList => prevList.map( item => item.id === id? {...item, editMode: true} : item));
+  function newItemForm() {
+    onChangeHandler({editMode: "new"})
+  }
+
+  function onChangeHandler(data) {
+    const newList = resetEditModes();
+
+    if (data === null) {
+      setListData(newList.filter(item => item.hasOwnProperty('id')));
+    } else if (data.editMode === "new") {
+      setListData([...newList, data])
+    } else {
+      setListData(newList.map( item => item.id === data.id? data : item));
+    }
+  }
+
+  function resetEditModes() {
+    let newList = [];
+    listData.forEach( item => {
+      const { editMode, ...withoutEditMode } = item;
+      if (withoutEditMode.hasOwnProperty('id')) {
+        newList.push(withoutEditMode);
+      }
+    })
+    return newList;
   }
 
   return (
     <div>
       {listData.map((rowData) =>
-          rowData.editMode === true ? 
-            <FormView schema={schema} data={rowData} /> : 
-            <ListView schema={schema} data={rowData} handleEdit={handleEdit} />
+          rowData.editMode === undefined ? 
+            <ListView key={'list' + rowData.id} schema={schema} data={rowData} onChange={onChangeHandler} /> :
+            <FormView key={'form' + rowData.id} schema={schema} data={rowData} onChange={onChangeHandler} /> 
       )}
+      <Button onClick={newItemForm}>Add</Button>
     </div>
   )
 
