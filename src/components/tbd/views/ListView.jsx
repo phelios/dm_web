@@ -20,22 +20,9 @@ function ListView({data, schema, onChange}) {
   //   navigate(String(id));
   // }
 
-  // function handleDelete(id) {
-  //   let data = {
-  //     method: 'DELETE',
-  //   };
-  //   tbdFetch(`${url}${id}`, data, r => {
-  //     setListData(
-  //       listData.filter(v => {
-  //         return v.id !== id;
-  //       }),
-  //     );
-  //   }, setIsLoading);
-  // }
-
   function handleEdit() {
     data.editMode = "update";
-    onChange(data);
+    onChange(data, "update");
   }
 
   function DynamicDisplay({data, fieldSpec}) {

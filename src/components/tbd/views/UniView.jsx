@@ -16,17 +16,21 @@ export default function UniView({schema, apiEndpoint}) {
   }, [apiEndpoint])
 
   function newItemForm() {
-    onChangeHandler({editMode: "new"})
+    onChangeHandler({editMode: "new"}, "add")
   }
 
-  function onChangeHandler(data) {
+  function onChangeHandler(data, mode) {
     const newList = resetEditModes();
 
-    if (data === null) {
-      setListData(newList.filter(item => item.hasOwnProperty('id')));
-    } else if (data.editMode === "new") {
+    if (mode == "delete") {
+      if (!data.hasOwnProperty('id')){
+        setListData(newList.filter(item => item.hasOwnProperty('id')));
+      } else {
+        setListData(newList.filter(item => item.id !== data.id))
+      }
+    } else if (mode === "add") {
       setListData([...newList, data])
-    } else {
+    } else if (mode == "update") {
       setListData(newList.map( item => item.id === data.id? data : item));
     }
   }
@@ -47,7 +51,7 @@ export default function UniView({schema, apiEndpoint}) {
       {listData.map((rowData) =>
           rowData.editMode === undefined ? 
             <ListView key={'list' + rowData.id} schema={schema} data={rowData} onChange={onChangeHandler} /> :
-            <FormView key={'form' + rowData.id} schema={schema} data={rowData} onChange={onChangeHandler} /> 
+            <FormView key={'form' + rowData.id} schema={schema} data={rowData} onChange={onChangeHandler} apiEndpoint={apiEndpoint} /> 
       )}
       <Button onClick={newItemForm}>Add</Button>
     </div>
