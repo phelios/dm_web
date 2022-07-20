@@ -3,7 +3,7 @@ import {dm_backend_url} from "../../config"
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useLoading } from '../providers/LoadingContext';
-import { tbdFetch } from '../tbd/http';
+import { tbdGet } from '../tbd/http';
 import UniView from '../tbd/views/UniView';
 
 export default function Projects() {
@@ -28,9 +28,10 @@ export default function Projects() {
   }
 
   useEffect(() => {
-    tbdFetch(categoryApiUrl, {}, r => {
-      r.json().then(json => initFields(json))
-    }, setIsLoading)
+    tbdGet(categoryApiUrl, {}, setIsLoading)
+      .then( r => {
+        r.json().then(json => initFields(json))
+      })
   }, [categoryApiUrl])
 
   if (fields.length < 1) {

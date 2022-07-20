@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ListView from "./ListView";
 import FormView from "./FormView";
-import { tbdFetch } from "../http";
+import { tbdGet } from "../http";
 import { useLoading } from "../../providers/LoadingContext";
 import { Button } from "react-bootstrap";
 
@@ -10,10 +10,11 @@ export default function UniView({schema, apiEndpoint}) {
   const {setIsLoading} = useLoading();
 
   useEffect(() => {
-    tbdFetch(apiEndpoint, {}, r => {
-      r.json().then(json => setListData(json))
-    }, setIsLoading)
-  }, [apiEndpoint])
+    tbdGet(apiEndpoint, {}, setIsLoading)
+      .then(r => {
+        r.json().then(json => setListData(json))
+      });
+  }, [apiEndpoint]);
 
   function newItemForm() {
     onChangeHandler({editMode: "new"}, "add")

@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import Form from 'react-bootstrap/Form'
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
-import {tbdFetch} from "../http";
+import {tbdDelete, tbdPost, tbdPut} from "../http";
 import DynamicInput from '../components/DynamicInput';
 import Row from 'react-bootstrap/Row'
 import { useLoading } from '../../providers/LoadingContext';
@@ -20,42 +20,28 @@ function FormView({schema, data, onChange, apiEndpoint}) {
   }, [data])
 
   function updateFormData(fieldName, val) {
-    console.log("Update State");
-    console.log(fieldName);
-    console.log(val);
     setFormData({...formData, [fieldName]: val});
-    console.log(formData);
   }
 
   function handleNew() {
-    let payload = {
-      method: 'POST',
-      body: JSON.stringify(formData),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    };
-
-    tbdFetch(apiEndpoint, payload, r => {
-      r.json().then(newData => onChange(newData, "add"));
-    }, setIsLoading);
+    tbdPost(apiEndpoint, formData, setIsLoading)
+      .then(r => {
+        r.json().then(newData => onChange(newData, "add"));
+      })
   }
 
   function handleUpdate() {
-    const updatePayload = {...formData, id: data.id}
-    let payload = {
-      method: 'PUT',
-      body: JSON.stringify(updatePayload),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    };
-
-    tbdFetch(`${apiEndpoint}${data.id}`, payload, r => {
+    const formDataWithId = {...formData, id: data.id}
+    tbdPut(`${apiEndpoint}${data.id}`, formDataWithId, setIsLoading).then(r => {
       r.json().then(newData => onChange(newData, "update"));
-    }, setIsLoading);
+    });
+  }
+  
+  function handleDelete() {
+    tbdDelete(`${apiEndpoint}${data.id}`, setIsLoading)
+      .then(r => {
+      onChange(data, "delete");
+    });
   }
   
   function handleSave() {
@@ -75,17 +61,6 @@ function FormView({schema, data, onChange, apiEndpoint}) {
     }
 
   }
-
-  function handleDelete() {
-    let payload = {
-      method: 'DELETE',
-    };
-
-    tbdFetch(`${apiEndpoint}${data.id}`, payload, r => {
-      onChange(data, "delete");
-    }, setIsLoading);
-  }
-
 
   return (
     <Card>
