@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ListView from "./ListView";
 import FormView from "./FormView";
-import { tbdGet } from "../http";
-import { useLoading } from "../../providers/LoadingContext";
 import { Button } from "react-bootstrap";
 
 export default function UniView({schema, initListData, onNew, onUpdate, onDelete}) {
   const [listData, setListData] = useState([]);
-  const {setIsLoading} = useLoading();
 
   useEffect(() => {
     setListData(initListData);
@@ -20,7 +17,7 @@ export default function UniView({schema, initListData, onNew, onUpdate, onDelete
   function onChangeHandler(data, mode) {
     const newList = resetEditModes();
 
-    if (mode == "delete") {
+    if (mode === "delete") {
       if (!data.hasOwnProperty('id')){
         setListData(newList.filter(item => item.hasOwnProperty('id')));
       } else {
@@ -28,7 +25,7 @@ export default function UniView({schema, initListData, onNew, onUpdate, onDelete
       }
     } else if (mode === "add") {
       setListData([...newList, data])
-    } else if (mode == "update") {
+    } else if (mode === "update") {
       setListData(newList.map( item => item.id === data.id? data : item));
     }
   }

@@ -3,15 +3,12 @@ import Card from "react-bootstrap/Card";
 import Form from 'react-bootstrap/Form'
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
-import {tbdDelete, tbdPost, tbdPut} from "../http";
 import DynamicInput from '../components/DynamicInput';
 import Row from 'react-bootstrap/Row'
-import { useLoading } from '../../providers/LoadingContext';
 
 function FormView({schema, data, onChange, onDelete, onNew, onUpdate}) {
 
   const [formData, setFormData] = useState({});
-  const {setIsLoading} = useLoading();
 
   useEffect(() => {
     if (data.editMode === 'update') {
@@ -54,9 +51,9 @@ function FormView({schema, data, onChange, onDelete, onNew, onUpdate}) {
   }
 
   function handleCancel() {
-    if (data.editMode == 'new') {
+    if (data.editMode === 'new') {
       onChange(data, "delete");
-    } else if (data.editMode == 'update') {
+    } else if (data.editMode === 'update') {
       delete data.editMode
       onChange(data, "update");
     }
