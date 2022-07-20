@@ -55,10 +55,6 @@ export default function Projects() {
     return tbdDelete(`${projectsApiEndpoint}${itemId}`, setIsLoading)
   }
 
-  if (initData.length < 1) {
-    return null
-  }
-
   return (
     <div>
       <h1>
