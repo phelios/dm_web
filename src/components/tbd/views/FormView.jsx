@@ -8,7 +8,7 @@ import DynamicInput from '../components/DynamicInput';
 import Row from 'react-bootstrap/Row'
 import { useLoading } from '../../providers/LoadingContext';
 
-function FormView({schema, data, onChange, apiEndpoint}) {
+function FormView({schema, data, onChange, onDelete, onNew, onUpdate}) {
 
   const [formData, setFormData] = useState({});
   const {setIsLoading} = useLoading();
@@ -24,7 +24,7 @@ function FormView({schema, data, onChange, apiEndpoint}) {
   }
 
   function handleNew() {
-    tbdPost(apiEndpoint, formData, setIsLoading)
+    onNew(formData)
       .then(r => {
         r.json().then(newData => onChange(newData, "add"));
       })
@@ -32,13 +32,14 @@ function FormView({schema, data, onChange, apiEndpoint}) {
 
   function handleUpdate() {
     const formDataWithId = {...formData, id: data.id}
-    tbdPut(`${apiEndpoint}${data.id}`, formDataWithId, setIsLoading).then(r => {
+    onUpdate(formDataWithId, data.id)
+    .then(r => {
       r.json().then(newData => onChange(newData, "update"));
     });
   }
   
   function handleDelete() {
-    tbdDelete(`${apiEndpoint}${data.id}`, setIsLoading)
+    onDelete(data.id)
       .then(r => {
       onChange(data, "delete");
     });

@@ -5,16 +5,13 @@ import { tbdGet } from "../http";
 import { useLoading } from "../../providers/LoadingContext";
 import { Button } from "react-bootstrap";
 
-export default function UniView({schema, apiEndpoint}) {
+export default function UniView({schema, initListData, onNew, onUpdate, onDelete}) {
   const [listData, setListData] = useState([]);
   const {setIsLoading} = useLoading();
 
   useEffect(() => {
-    tbdGet(apiEndpoint, {}, setIsLoading)
-      .then(r => {
-        r.json().then(json => setListData(json))
-      });
-  }, [apiEndpoint]);
+    setListData(initListData);
+  }, [initListData]);
 
   function newItemForm() {
     onChangeHandler({editMode: "new"}, "add")
@@ -52,7 +49,14 @@ export default function UniView({schema, apiEndpoint}) {
       {listData.map((rowData) =>
           rowData.editMode === undefined ? 
             <ListView key={'list' + rowData.id} schema={schema} data={rowData} onChange={onChangeHandler} /> :
-            <FormView key={'form' + rowData.id} schema={schema} data={rowData} onChange={onChangeHandler} apiEndpoint={apiEndpoint} /> 
+            <FormView key={'form' + rowData.id} 
+              schema={schema} 
+              data={rowData} 
+              onChange={onChangeHandler} 
+              onNew={onNew} 
+              onUpdate={onUpdate} 
+              onDelete={onDelete} 
+            /> 
       )}
       <Button onClick={newItemForm}>Add</Button>
     </div>
