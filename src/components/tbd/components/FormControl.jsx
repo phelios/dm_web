@@ -9,7 +9,7 @@ export default function FormControl({field, value, handler}) {
   return(
     <Form.Control type='text'
                   placeholder={field.name}
-                  value={value? String(value) : null}
+                  value={value? String(value) : ''}
                   onChange={e => handler(field.name, e.target.value)}
     />
 
