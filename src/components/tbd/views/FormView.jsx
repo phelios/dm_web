@@ -62,24 +62,20 @@ function FormView({schema, data, onChange, onDelete, onNew, onUpdate}) {
 
   return (
     <Card>
-      <Form>
+      <Form className="form-view">
         <Row>
           {schema.map((field) =>
             <Col key={field.name}>
               <DynamicInput field={field} handler={updateFormData} value={formData[field.name]} />
             </Col>
           )}
-          <Col xs="1" lg='2'>
+          <Col xs="4" sm='4' className="right-align">
             <Button onClick={handleSave}>Save</Button>
-          </Col>
-          {
-            data.editMode === 'update' ? 
-              <Col xs="1" lg='2'>
-                <Button onClick={handleDelete} variant="danger">Delete</Button>
-              </Col> :
-              null
-          }
-          <Col xs="1" lg='2'>
+            {
+              data.editMode === 'update' ? 
+                  <Button onClick={handleDelete} variant="danger">Delete</Button>:
+                null
+            }
             <Button onClick={handleCancel}>Cancel</Button>
           </Col>
         </Row>

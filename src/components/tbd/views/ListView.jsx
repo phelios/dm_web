@@ -26,7 +26,7 @@ function ListView({data, schema, onChange}) {
               {
                 schema.map((fieldSpec) => <DynamicDisplay key={fieldSpec.name} data={data} fieldSpec={fieldSpec} />)
               }
-              <Col className='text-right'>
+              <Col xs={1} sm={1}>
                 <Button onClick={handleEdit}>
                  <BsPencil />
                 </Button>
