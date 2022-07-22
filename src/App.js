@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom';
 import LayoutProvider from './components/providers/LayoutProvider';
 import Categories from './components/pages/Categories';
+import Criteria from './components/pages/Criteria';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="projects" element={<Projects setPageTitle={setPageTitle} />} />
           <Route path="projects/:projectId" element={<Project setPageTitle={setPageTitle} />} />
           <Route path="categories" element={<Categories setPageTitle={setPageTitle} />} />
+          <Route path="criteria" element={<Criteria setPageTitle={setPageTitle} />} />
         </Routes>
       </Router>
     </LayoutProvider>

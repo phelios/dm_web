@@ -24,31 +24,25 @@ export default function Categories({setPageTitle}) {
   }, [categoriesApiUrl]);
 
 
-  // function handleNew(formData) {
-  //   return tbdPost(projectsApiEndpoint, formData, setIsLoading);
-  // }
+  function handleNew(formData) {
+    return tbdPost(categoriesApiUrl, formData, setIsLoading);
+  }
 
-  // function handleUpdate(formData, itemId) {
-  //   return tbdPut(`${projectsApiEndpoint}${itemId}`, formData, setIsLoading)
-  // }
+  function handleUpdate(formData, itemId) {
+    return tbdPut(`${categoriesApiUrl}${itemId}`, formData, setIsLoading)
+  }
   
-  // function handleDelete(itemId) {
-  //   return tbdDelete(`${projectsApiEndpoint}${itemId}`, setIsLoading)
-  // }
-
-  // function handleClick(itemId) {
-  //   navigate(String(itemId))
-
-  // }
+  function handleDelete(itemId) {
+    return tbdDelete(`${categoriesApiUrl}${itemId}`, setIsLoading)
+  }
 
   return (
     <div>
       <UniView schema={fields} 
         initListData={initData}
-        // onNew={handleNew}
-        // onUpdate={handleUpdate}
-        // onDelete={handleDelete}
-        // onClick={handleClick}
+        onNew={handleNew}
+        onUpdate={handleUpdate}
+        onDelete={handleDelete}
       />
     </div>
   )
