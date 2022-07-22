@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import {dm_backend_url} from "../../config"
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { useLoading } from '../providers/LoadingContext';
 import { tbdGet, tbdPost, tbdPut, tbdDelete } from '../tbd/http';
 import UniView from '../tbd/views/UniView';
 
-export default function Projects() {
+export default function Projects({setPageTitle}) {
+  setPageTitle("Projects")
 
   const {setIsLoading} = useLoading();
   const [fields, setFields] = useState([]);
@@ -57,11 +56,6 @@ export default function Projects() {
 
   return (
     <div>
-      <h1>
-        <Row>
-          <Col>Projects</Col>
-        </Row>
-      </h1>
       <UniView schema={fields} 
         initListData={initData}
         onNew={handleNew}
