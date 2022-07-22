@@ -1,0 +1,55 @@
+import React, {useEffect, useState} from 'react'
+import { useNavigate } from 'react-router-dom';
+import {dm_backend_url} from "../../config"
+import { useLoading } from '../providers/LoadingContext';
+import { tbdGet, tbdPost, tbdPut, tbdDelete } from '../tbd/http';
+import UniView from '../tbd/views/UniView';
+
+export default function Categories({setPageTitle}) {
+
+  const {setIsLoading} = useLoading();
+  const [initData, setInitData] = useState([]);
+
+  const fields = [{
+    name: 'name',
+    type: 'text'
+  }]
+
+  const categoriesApiUrl = dm_backend_url + '/categories/';
+
+  useEffect(() => {
+    setPageTitle("Categories");
+    tbdGet(categoriesApiUrl, {}, setIsLoading)
+      .then(r => r.json().then(json => setInitData(json)))
+  }, [categoriesApiUrl]);
+
+
+  // function handleNew(formData) {
+  //   return tbdPost(projectsApiEndpoint, formData, setIsLoading);
+  // }
+
+  // function handleUpdate(formData, itemId) {
+  //   return tbdPut(`${projectsApiEndpoint}${itemId}`, formData, setIsLoading)
+  // }
+  
+  // function handleDelete(itemId) {
+  //   return tbdDelete(`${projectsApiEndpoint}${itemId}`, setIsLoading)
+  // }
+
+  // function handleClick(itemId) {
+  //   navigate(String(itemId))
+
+  // }
+
+  return (
+    <div>
+      <UniView schema={fields} 
+        initListData={initData}
+        // onNew={handleNew}
+        // onUpdate={handleUpdate}
+        // onDelete={handleDelete}
+        // onClick={handleClick}
+      />
+    </div>
+  )
+}

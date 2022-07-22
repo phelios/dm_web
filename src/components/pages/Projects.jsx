@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 import {dm_backend_url} from "../../config"
 import { useLoading } from '../providers/LoadingContext';
 import { tbdGet, tbdPost, tbdPut, tbdDelete } from '../tbd/http';
 import UniView from '../tbd/views/UniView';
 
 export default function Projects({setPageTitle}) {
-  setPageTitle("Projects")
 
   const {setIsLoading} = useLoading();
   const [fields, setFields] = useState([]);
   const [initData, setInitData] = useState([]);
+  const navigate = useNavigate()
 
   const categoryApiUrl = dm_backend_url + '/categories/';
   const projectsApiEndpoint = dm_backend_url + '/projects/';
@@ -28,6 +29,7 @@ export default function Projects({setPageTitle}) {
   }
 
   useEffect(() => {
+    setPageTitle("Projects");
     const categoriesPromise = tbdGet(categoryApiUrl, {}, setIsLoading)
       .then( )
 
@@ -54,6 +56,11 @@ export default function Projects({setPageTitle}) {
     return tbdDelete(`${projectsApiEndpoint}${itemId}`, setIsLoading)
   }
 
+  function handleClick(itemId) {
+    navigate(String(itemId))
+
+  }
+
   return (
     <div>
       <UniView schema={fields} 
@@ -61,6 +68,7 @@ export default function Projects({setPageTitle}) {
         onNew={handleNew}
         onUpdate={handleUpdate}
         onDelete={handleDelete}
+        onClick={handleClick}
       />
     </div>
   )

@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from "react-router-dom";
+import { useLoading } from '../providers/LoadingContext';
+import { tbdGet } from '../tbd/http';
+import {dm_backend_url} from "../../config"
 
-export default function Project() {
-    let { projectId } = useParams();
+export default function Project({setPageTitle}) {
+  const { projectId } = useParams();
+  const {setIsLoading} = useLoading();
+  const projectApiEndpoint = dm_backend_url + '/projects/' + projectId;
 
-    return (
-      <h1>Hello World</h1>
-    );
+  useEffect(() => {
+
+    tbdGet(projectApiEndpoint, {}, setIsLoading)
+      .then( r => {
+        r.json().then( json => {
+          setPageTitle(`Project: ${json.name}`)
+        })
+      })
+  }, [projectId])
+
+
+  return (
+    <div>Hello World</div>
+  );
 }

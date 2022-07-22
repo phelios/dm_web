@@ -3,7 +3,7 @@ import ListView from "./ListView";
 import FormView from "./FormView";
 import { Button } from "react-bootstrap";
 
-export default function UniView({schema, initListData, onNew, onUpdate, onDelete}) {
+export default function UniView({schema, initListData, onNew, onUpdate, onDelete, onClick}) {
   const [listData, setListData] = useState([]);
 
   useEffect(() => {
@@ -45,7 +45,12 @@ export default function UniView({schema, initListData, onNew, onUpdate, onDelete
     <div>
       {listData.map((rowData) =>
           rowData.editMode === undefined ? 
-            <ListView key={'list' + rowData.id} schema={schema} data={rowData} onChange={onChangeHandler} /> :
+            <ListView key={'list' + rowData.id} 
+              schema={schema}
+              data={rowData}
+              onChange={onChangeHandler}
+              onClick={onClick}
+            /> :
             <FormView key={'form' + rowData.id} 
               schema={schema} 
               data={rowData} 

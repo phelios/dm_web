@@ -9,6 +9,7 @@ import {
   Navigate
 } from 'react-router-dom';
 import LayoutProvider from './components/providers/LayoutProvider';
+import Categories from './components/pages/Categories';
 
 function App() {
 
@@ -20,7 +21,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="projects" replace={true} />} />
           <Route path="projects" element={<Projects setPageTitle={setPageTitle} />} />
-          <Route path="projects/:projectId" element={<Project />} />
+          <Route path="projects/:projectId" element={<Project setPageTitle={setPageTitle} />} />
+          <Route path="categories" element={<Categories setPageTitle={setPageTitle} />} />
         </Routes>
       </Router>
     </LayoutProvider>
