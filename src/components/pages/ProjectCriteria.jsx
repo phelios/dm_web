@@ -25,17 +25,20 @@ export default function ProjectCriteria({setPageTitle}) {
   }
 
   const projectCriteriaApiUrl = dm_backend_url + '/project_criteria/';
+  const projectApiUrl = dm_backend_url + '/projects/'
   const criteriaApiUrl = dm_backend_url + '/criteria/';
 
   useEffect(() => {
-    setPageTitle("Project Criteria");
     const criteria = tbdGet(criteriaApiUrl, {}, setIsLoading)
     const projectCriteria = tbdGet(`${projectCriteriaApiUrl}?project_id=${projectId}`, {}, setIsLoading)
+    const project = tbdGet(`${projectApiUrl}${projectId}`, {}, setIsLoading)
 
-    Promise.all([criteria, projectCriteria])
+    Promise.all([criteria, projectCriteria, project])
       .then(r => {
         r[0].json().then(json => initFields(json))
-        r[1].json().then(json => setInitData(json))
+        r[1].json().then(json => setInitData(json));
+        r[2].json().then(json => setPageTitle(`Project Criteria for: ${json.name}`));
+
       })
   }, [projectCriteriaApiUrl]);
 
