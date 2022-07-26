@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useLoading } from '../providers/LoadingContext';
 import { tbdGet } from '../tbd/http';
 import {dm_backend_url} from "../../config"
@@ -21,6 +21,8 @@ export default function Project({setPageTitle}) {
 
 
   return (
-    <div>Hello World</div>
+    <div>
+      <Link to="criteria">Manage criteria</Link>
+    </div>
   );
 }

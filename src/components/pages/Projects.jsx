@@ -31,7 +31,6 @@ export default function Projects({setPageTitle}) {
   useEffect(() => {
     setPageTitle("Projects");
     const categoriesPromise = tbdGet(categoryApiUrl, {}, setIsLoading)
-      .then( )
 
     const projectsPromise =  tbdGet(projectsApiEndpoint, {}, setIsLoading)
 
