@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Button from "react-bootstrap/Button";
 import {BsPencil} from "react-icons/bs";
+import { ListGroup } from 'react-bootstrap';
 
 function ListView({data, schema, onChange, onClick}) {
   function handleEdit() {
@@ -28,8 +29,8 @@ function ListView({data, schema, onChange, onClick}) {
   }
 
   return (
-        <Card >
-          <Card.Header className='align-middle'>
+        <ListGroup variant='flush' >
+          <ListGroup.Item className='align-middle'>
             <Row>
               {
                 schema.map((fieldSpec) => <Col onClick={handleOnClick} key={fieldSpec.name}>{dynamicDisplay(data, fieldSpec)}</Col>)
@@ -40,8 +41,8 @@ function ListView({data, schema, onChange, onClick}) {
                 </Button>
               </Col>
             </Row>
-          </Card.Header>
-        </Card>
+          </ListGroup.Item>
+        </ListGroup>
   )
 }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ListView from "./ListView";
 import FormView from "./FormView";
-import { Button } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 
 export default function UniView({schema, initListData, onNew, onUpdate, onDelete, onClick}) {
   const [listData, setListData] = useState([]);
@@ -41,8 +41,23 @@ export default function UniView({schema, initListData, onNew, onUpdate, onDelete
     return newList;
   }
 
+  function getTitle(field) {
+    let name = field.name.replace("_id", "");
+    return name.charAt(0).toUpperCase() + name.slice(1);
+
+  }
+
   return (
     <div>
+      <Card>
+        <Card.Header>
+          <Row>
+            {schema.map(field =>
+              <Col>{getTitle(field)}</Col>)
+            }
+            <Col xs={1} sm={1}></Col>
+          </Row>
+        </Card.Header>
       {listData.map((rowData) =>
           rowData.editMode === undefined ? 
             <ListView key={'list' + rowData.id} 
@@ -60,6 +75,7 @@ export default function UniView({schema, initListData, onNew, onUpdate, onDelete
               onDelete={onDelete} 
             /> 
       )}
+      </Card>
       <Button onClick={newItemForm}>Add</Button>
     </div>
   )
