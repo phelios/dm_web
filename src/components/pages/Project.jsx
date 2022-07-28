@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useLoading } from '../providers/LoadingContext';
 import { tbdGet, tbdDelete, tbdPost, tbdPut } from '../tbd/http';
 import {dm_backend_url} from "../../config"
@@ -9,6 +9,7 @@ export default function Project({setPageTitle}) {
   const { projectId } = useParams();
   const [initData, setInitData] = useState([]);
   const {setIsLoading} = useLoading();
+  const navigate = useNavigate();
   const projectApiEndpoint = dm_backend_url + '/projects/' + projectId;
   const candidateApiEndPoint = dm_backend_url + '/candidates/';
 
@@ -48,6 +49,11 @@ export default function Project({setPageTitle}) {
     return tbdDelete(`${candidateApiEndPoint}${itemId}`, setIsLoading)
   }
 
+  function handleClick(candidateId) {
+    navigate(`candidate/${String(candidateId)}`)
+
+  }
+
   return (
     <div>
       <Link to="criteria">Manage criteria</Link>
@@ -56,6 +62,7 @@ export default function Project({setPageTitle}) {
         onNew={handleNew}
         onUpdate={handleUpdate}
         onDelete={handleDelete}
+        onClick={handleClick}
       />
     </div>
   );
