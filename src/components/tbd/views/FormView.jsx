@@ -61,7 +61,6 @@ function FormView({schema, data, onChange, onDelete, onNew, onUpdate}) {
   }
 
   return (
-    <Card>
       <Form className="form-view">
         <Row>
           {schema.map((field) =>
@@ -80,7 +79,6 @@ function FormView({schema, data, onChange, onDelete, onNew, onUpdate}) {
           </Col>
         </Row>
       </Form>
-    </Card>
   )
 }
 
