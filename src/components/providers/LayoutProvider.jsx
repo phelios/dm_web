@@ -2,8 +2,6 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { LoadingProvider, useLoading } from "./LoadingContext";
 import Spinner from "react-bootstrap/Spinner";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 export default function LayoutProvider({ children, pageTitle}) {
 

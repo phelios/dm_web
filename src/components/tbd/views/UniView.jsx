@@ -53,7 +53,7 @@ export default function UniView({schema, initListData, onNew, onUpdate, onDelete
         <Card.Header>
           <Row>
             {schema.map(field =>
-              <Col>{getTitle(field)}</Col>)
+              <Col key={field.name}>{getTitle(field)}</Col>)
             }
             <Col xs={1} sm={1}></Col>
           </Row>
