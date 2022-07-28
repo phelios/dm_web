@@ -21,11 +21,6 @@ export default function LayoutProvider({ children, pageTitle}) {
     <LoadingProvider>
       <Container>
         <TbdSpinner />
-        <h1>
-          <Row>
-            <Col>DM - {pageTitle}</Col>
-          </Row>
-        </h1>
         {children}
       </Container>
     </LoadingProvider>
