@@ -19,7 +19,7 @@ export default function ProjectCriteria({setPageTitle}) {
       list: json
     },{
       name: 'weight',
-      type: 'text'
+      type: 'number'
     }]
     setFields(fields)
   }

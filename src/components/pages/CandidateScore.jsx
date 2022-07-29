@@ -19,7 +19,7 @@ export default function CandidateScore({setPageTitle}) {
       list: json
     },{
       name: 'score',
-      type: 'text'
+      type: 'number'
     }]
     setFields(fields)
   }

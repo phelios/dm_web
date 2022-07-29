@@ -13,7 +13,7 @@ function ListView({data, schema, onChange, onClick}) {
 
   function dynamicDisplay(data, fieldSpec) {
     let displayData = '';
-    if (fieldSpec.type === 'text') {
+    if (['text', 'number'].includes(fieldSpec.type)) {
       displayData = data[fieldSpec.name]
     } else if (fieldSpec.type === 'dropdown') {
       displayData = fieldSpec.list.filter( i => i.id === data[fieldSpec.name])[0].name
